@@ -1,0 +1,52 @@
+---
+alertmanager:
+  image:
+    repository: ${registry}/releng/alertmanager
+    tag: ${prom_alert_manager_version}
+  
+
+  service:
+    type: LoadBalancer
+
+
+configmapReload:
+
+  image:
+    repository: ${registry}/releng/configmap-reload
+    tag: ${prom_config_map_reload_version}
+
+
+initChownData:
+  image:
+    repository: ${registry}/releng/busybox
+    tag: ${busybox_version}
+
+kubeStateMetrics:
+  image:
+    repository: ${registry}/releng/kube-state-metrics
+    tag: ${prom_kube_state_metrics_version}
+  service:
+    type: ClusterIP
+
+nodeExporter:
+  image:
+    repository: ${registry}/releng/node-exporter
+    tag: ${prom_node_exporter_version}
+  service:
+    type: ClusterIP
+
+server:
+  image:
+    repository: ${registry}/releng/prometheus
+    tag: ${prom_prometheus_version}
+
+  service:
+    type: LoadBalancer
+
+pushgateway:
+  image:
+    repository: ${registry}/releng/pushgateway
+    tag: ${prom_push_gateway_version}
+
+  service:
+    type: LoadBalancer

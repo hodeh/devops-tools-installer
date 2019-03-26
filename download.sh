@@ -169,6 +169,12 @@ redis_image_version=${REDIS_IMAGE_VERSION:-5.0.4}
 minio_image_version=${MINIO_IMAGE_VERSION:-RELEASE.2019-03-20T22-38-47Z}
 minio_mc_image_version=${MINIO_MC_IMAGE_VERSION:-RELEASE.2019-03-20T21-29-03Z}
 halyard_image_version=${HALYARD_IMAGE_VERSION:-1.17.0}
+prom_alert_mgr_version=${PROM_ALERT_MGR_IMAGE_VERSION:-v0.16.1}
+prom_config_map_reload_version=${PROM_CONFIG_MAP_IMAGE_VERSION:-v0.2.2}
+prom_kube_state_metrics=${PROM_KUBE_STATE_METRICS:-v1.5.0}
+prom_node_exporter=${PROM_NODE_EXPORTER:-v0.17.0}
+prom_prometheus=${PROM_PROMETHEUS:-v2.8.0}
+prom_push_gateway=${PROM_PUSH_GATEWAY:-v0.7.0}
 
 image_download_dir=${script_dir}/.downloads/images
 mkdir -p $image_download_dir
@@ -189,6 +195,13 @@ download_images \
     minio/minio:${minio_image_version}
     minio/mc:${minio_mc_image_version}
     gcr.io/spinnaker-marketplace/halyard:${halyard_image_version}
+    prom/alertmanager:${prom_alert_mgr_version}
+    jimmidyson/configmap-reload:${prom_config_map_reload_version}
+    quay.io/coreos/kube-state-metrics:${prom_kube_state_metrics}
+    prom/node-exporter:${prom_node_exporter}
+    prom/prometheus:${prom_prometheus}
+    prom/pushgateway:${prom_push_gateway}
+    
   " \
   "$image_download_dir" \
   "${registry}/releng" \
@@ -203,6 +216,7 @@ artifactory_chart_version=${ARTIFACTORY_CHART_VERSION:-7.12.16}
 redis_chart_version=${REDIS_CHART_VERSION:-6.4.3}
 minio_chart_version=${MINIO_CHART_VERSION:-2.4.9}
 spinnaker_chart_version=${SPINNAKER_CHART_VERSION:-1.8.1}
+prometheus_chart_version=${PROMETHEUS_CHART_VERSION:-8.9.0}
 
 helm init --client-only >/dev/null 2>&1
 helm repo add jfrog https://charts.jfrog.io/
@@ -226,6 +240,8 @@ download_charts \
     stable/redis:${redis_chart_version}
     stable/minio:${minio_chart_version}
     stable/spinnaker:${spinnaker_chart_version}
+    stable/prometheus:${prometheus_chart_version}
+
   " \
   "$chart_download_dir" \
   "releng" \
