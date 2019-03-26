@@ -52,7 +52,7 @@ install() {
       $prometheus_instance_name releng/prometheus
   fi
 
-  service_info=$(kubectl get service ${prometheus_instance_name}-master --namespace ${environment} | tail -1)
+  service_info=$(kubectl get service ${prometheus_instance_name}-server --namespace ${environment} | tail -1)
   prometheus_host=$(echo $service_info | awk '{ print $3 }')
   prometheus_port=$(echo $service_info | awk '{ print substr($5,0,index($5,"/")-1) }')
 }
