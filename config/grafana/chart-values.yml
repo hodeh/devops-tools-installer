@@ -1,0 +1,24 @@
+---
+image:
+  repository: ${registry}/releng/grafana
+  tag: ${grafana_image_version}
+
+sidecar:
+  image: ${registry}/releng/k8s-sidecar:${sidecar_image_version}
+
+downloadDashboardsImage:
+  repository: ${registry}/releng/curl
+  tag: ${curl_image_version}
+  pullPolicy: IfNotPresent
+
+chownDataImage:
+  repository: ${registry}/releng/busybox
+  tag: ${busybox_version}
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+adminUser: admin
+adminPassword: Passw0rd
+persistence:
+  enabled: true
